@@ -1,7 +1,9 @@
-package com.lihonghao.weibo;
+package com.lihonghao.weibo.activity;
 
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+
+import com.lihonghao.weibo.R;
 
 public class SplashActivity extends AppCompatActivity {
 
