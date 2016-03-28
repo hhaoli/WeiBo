@@ -33,11 +33,11 @@ public class MyApplication extends Application {
         return (MyApplication) context.getApplicationContext();
     }
 
-    public ApplicationComponent getApplicationComponent() {
+    public ApplicationComponent getComponent() {
         return mApplicationComponent;
     }
 
-    public void setApplicationComponent(ApplicationComponent applicationComponent) {
+    public void setComponent(ApplicationComponent applicationComponent) {
         mApplicationComponent = applicationComponent;
     }
 }
