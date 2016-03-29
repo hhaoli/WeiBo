@@ -1,10 +1,11 @@
-package com.lihonghao.weibo.data;
+package com.lihonghao.weibo.data.remote;
 
 import android.content.Context;
 import android.os.Handler;
 import android.os.Looper;
 
 import com.lihonghao.weibo.MyApplication;
+import com.lihonghao.weibo.data.BusEvent;
 import com.squareup.otto.Bus;
 
 import java.io.IOException;
@@ -19,7 +20,7 @@ public class UnauthorisedInterceptor implements Interceptor {
     Bus eventBus;
 
     public UnauthorisedInterceptor(Context context) {
-        MyApplication.get(context).getApplicationComponent().inject(this);
+        MyApplication.get(context).getComponent().inject(this);
     }
 
     @Override

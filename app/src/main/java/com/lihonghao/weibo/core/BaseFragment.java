@@ -1,5 +1,7 @@
-package com.lihonghao.weibo.fragment;
+package com.lihonghao.weibo.core;
 
+import android.app.Activity;
+import android.content.Context;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
@@ -7,7 +9,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
-import com.lihonghao.weibo.activity.BaseAppCompatActivity;
+import com.lihonghao.weibo.core.BaseActivity;
 
 import butterknife.ButterKnife;
 
@@ -15,12 +17,24 @@ public abstract class BaseFragment extends Fragment {
 
     private int taskId;
     protected View rootView;
+    private Activity mActivity;
+
+
+    public BaseActivity mActivity() {
+        return (BaseActivity) mActivity;
+    }
+
+    @Override
+    public void onAttach(Context context) {
+        super.onAttach(context);
+        mActivity = (BaseActivity) context;
+    }
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setReturnTransition(true);
-        ((BaseAppCompatActivity) getActivity()).activityComponent().inject(this);
+        mActivity().activityComponent().inject(this);
         taskId = getActivity().getTaskId();
     }
 
@@ -48,6 +62,7 @@ public abstract class BaseFragment extends Fragment {
     @Override
     public void onDestroy() {
         super.onDestroy();
+        ButterKnife.unbind(this);
     }
 
     protected abstract int layoutResID();

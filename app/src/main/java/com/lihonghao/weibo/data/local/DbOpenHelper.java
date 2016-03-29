@@ -1,4 +1,4 @@
-package com.lihonghao.weibo.data;
+package com.lihonghao.weibo.data.local;
 
 import android.content.Context;
 import android.database.sqlite.SQLiteDatabase;
@@ -7,6 +7,7 @@ import android.database.sqlite.SQLiteOpenHelper;
 import com.lihonghao.weibo.injection.ApplicationContext;
 
 import javax.inject.Inject;
+import javax.inject.Singleton;
 
 public class DbOpenHelper  extends SQLiteOpenHelper {
 
@@ -22,7 +23,7 @@ public class DbOpenHelper  extends SQLiteOpenHelper {
     public void onCreate(SQLiteDatabase db) {
         db.beginTransaction();
         try {
-//            db.execSQL(Db.BeaconTable.CREATE);
+            db.execSQL(Db.UserTable.CREATE);
             db.setTransactionSuccessful();
         } finally {
             db.endTransaction();

@@ -3,7 +3,7 @@ package com.lihonghao.weibo.injection.module;
 import android.app.Application;
 import android.content.Context;
 
-import com.lihonghao.weibo.data.APIService;
+import com.lihonghao.weibo.data.remote.APIService;
 import com.lihonghao.weibo.injection.ApplicationContext;
 import com.squareup.otto.Bus;
 

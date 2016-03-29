@@ -1,5 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+    <item name="AppBarLayout" type="id"/>
     <item name="Toolbar" type="id"/>
+    <item name="Title" type="id"/>
     <item name="SwipeRefreshLayout" type="id"/>
 </resources>

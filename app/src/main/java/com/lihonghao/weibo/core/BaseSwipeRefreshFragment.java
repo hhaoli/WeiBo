@@ -1,4 +1,4 @@
-package com.lihonghao.weibo.fragment;
+package com.lihonghao.weibo.core;
 
 import android.support.v4.widget.SwipeRefreshLayout;
 
@@ -6,7 +6,7 @@ import com.lihonghao.weibo.R;
 
 import butterknife.Bind;
 
-public abstract class SwipeRefreshBaseFragment extends ToorbarBaseFragment implements SwipeRefreshLayout.OnRefreshListener {
+public abstract class BaseSwipeRefreshFragment extends BaseToolbarFragment implements SwipeRefreshLayout.OnRefreshListener {
 
     @Bind(R.id.SwipeRefreshLayout)
     protected SwipeRefreshLayout mSwipeRefreshLayout;

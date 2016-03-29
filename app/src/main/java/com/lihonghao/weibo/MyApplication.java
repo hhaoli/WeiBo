@@ -29,7 +29,7 @@ public class MyApplication extends Application {
         mBus.register(this);
     }
 
-    public static MyApplication get(Context context){
+    public static MyApplication get(Context context) {
         return (MyApplication) context.getApplicationContext();
     }
 

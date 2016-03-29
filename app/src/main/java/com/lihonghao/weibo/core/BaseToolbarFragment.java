@@ -1,12 +1,13 @@
-package com.lihonghao.weibo.fragment;
+package com.lihonghao.weibo.core;
 
 import android.support.v7.widget.Toolbar;
 
 import com.lihonghao.weibo.R;
+import com.lihonghao.weibo.core.BaseFragment;
 
 import butterknife.Bind;
 
-public abstract class ToorbarBaseFragment extends BaseFragment{
+public abstract class BaseToolbarFragment extends BaseFragment {
     @Bind(R.id.Toolbar)
     protected Toolbar mToolbar;
 
