@@ -31,11 +31,11 @@ public class SplashPresenter extends BasePresenter<SplashView> {
             getMvpView().settingNet();
             return;
         }
-
-        if (checkVersion()) {//有新版本
-            getMvpView().updateVersion();
-            return;
-        }
+/*****暂时不检查版本更新******/
+//        if (checkVersion()) {//有新版本
+//            getMvpView().updateVersion();
+//            return;
+//        }
 
         if (!getMvpView().isFirst()) {//第一次使用
             getMvpView().toGuide();
@@ -46,7 +46,6 @@ public class SplashPresenter extends BasePresenter<SplashView> {
     }
 
     private boolean checkVersion() {
-
         mSubscription.add(mDataManager.login("demo", "p@ssw0rd")
                         .subscribeOn(Schedulers.newThread())
                         .observeOn(AndroidSchedulers.mainThread())

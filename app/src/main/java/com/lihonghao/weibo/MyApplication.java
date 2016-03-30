@@ -7,6 +7,7 @@ import com.lihonghao.weibo.data.DataManager;
 import com.lihonghao.weibo.injection.component.ApplicationComponent;
 import com.lihonghao.weibo.injection.component.DaggerApplicationComponent;
 import com.lihonghao.weibo.injection.module.ApplicationModule;
+import com.socks.library.KLog;
 import com.squareup.otto.Bus;
 
 import javax.inject.Inject;
@@ -22,6 +23,9 @@ public class MyApplication extends Application {
     @Override
     public void onCreate() {
         super.onCreate();
+
+        KLog.init(BuildConfig.LOG_DEBUG);
+
         mApplicationComponent = DaggerApplicationComponent.builder()
                 .applicationModule(new ApplicationModule(this))
                 .build();

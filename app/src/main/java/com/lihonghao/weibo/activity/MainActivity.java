@@ -24,7 +24,6 @@ public class MainActivity extends BaseActivity {
     @Override
     protected void init(Bundle savedInstanceState) {
         activityComponent().inject(this);
-        Log.e("tag", "ID=" + getTaskId());
     }
 
     public static void launch(AppCompatActivity activity) {
@@ -35,6 +34,5 @@ public class MainActivity extends BaseActivity {
     @Override
     protected void onDestroy() {
         super.onDestroy();
-        mDataManager.removeSubscription(getTaskId());
     }
 }
