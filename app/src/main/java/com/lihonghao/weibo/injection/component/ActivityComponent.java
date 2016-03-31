@@ -1,6 +1,7 @@
 package com.lihonghao.weibo.injection.component;
 
 
+import com.lihonghao.weibo.activity.LoginActivity;
 import com.lihonghao.weibo.activity.MainActivity;
 import com.lihonghao.weibo.activity.SplashActivity;
 import com.lihonghao.weibo.core.BaseActivity;
@@ -18,6 +19,8 @@ public interface ActivityComponent {
     void inject(SplashActivity activity);
 
     void inject(MainActivity activity);
+
+    void inject(LoginActivity activity);
 
     void inject(BaseFragment fragment);
 }

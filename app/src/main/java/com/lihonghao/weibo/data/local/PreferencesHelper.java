@@ -8,6 +8,7 @@ import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.lihonghao.weibo.Config;
 import com.lihonghao.weibo.injection.ApplicationContext;
+import com.sina.weibo.sdk.auth.Oauth2AccessToken;
 
 import javax.inject.Inject;
 import javax.inject.Singleton;
@@ -17,6 +18,9 @@ public class PreferencesHelper {
 
     private final SharedPreferences mPref;
     private final Gson mGson;
+
+    private static final String PREFERENCES_NAME = "com_weibo_sdk_android";
+
 
     @Inject
     public PreferencesHelper(@ApplicationContext Context context) {
@@ -99,4 +103,26 @@ public class PreferencesHelper {
         }
         return null;
     }
+
+    /**
+     * 保存 Token 对象到 SharedPreferences。
+     */
+    public void writeAccessToken(Oauth2AccessToken token) {
+        SharedPreferences.Editor editor = mPref.edit();
+        editor.putString(Config.KEY_UID, token.getUid());
+        editor.putString(Config.KEY_ACCESS_TOKEN, token.getToken());
+        editor.putLong(Config.KEY_EXPIRES_IN, token.getExpiresTime());
+        editor.apply();
+    }
+    /**
+     * 读取 Token 信息。
+     */
+    public Oauth2AccessToken readAccessToken() {
+        Oauth2AccessToken token = new Oauth2AccessToken();
+        token.setUid(mPref.getString(Config.KEY_UID, ""));
+        token.setToken(mPref.getString(Config.KEY_ACCESS_TOKEN, ""));
+        token.setExpiresTime(mPref.getLong(Config.KEY_EXPIRES_IN, 0));
+        return token;
+    }
+
 }

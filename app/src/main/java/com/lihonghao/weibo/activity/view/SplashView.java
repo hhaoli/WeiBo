@@ -7,11 +7,7 @@ public interface SplashView extends MvpView {
 
     void settingNet();
 
-    boolean isFirst();
-
-    void updateVersion();
+    void toLogin();
 
     void toMain();
-
-    void toGuide();
 }

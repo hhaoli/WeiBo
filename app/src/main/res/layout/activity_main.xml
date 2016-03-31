@@ -1,13 +1,66 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout
+<LinearLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:paddingBottom="@dimen/activity_vertical_margin"
-    android:paddingLeft="@dimen/activity_horizontal_margin"
-    android:paddingRight="@dimen/activity_horizontal_margin"
-    android:paddingTop="@dimen/activity_vertical_margin"
-    tools:context="com.lihonghao.weibo.activity.MainActivity">
+    android:background="@color/bg_gray"
+    android:orientation="vertical"
+    tools:context=".activity.MainActivity">
 
-</RelativeLayout>
+    <FrameLayout
+        android:id="@+id/main_container"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"/>
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1px"
+        android:background="@color/divider_gray"/>
+
+    <RadioGroup
+        android:id="@+id/main_tab"
+        android:layout_width="match_parent"
+        android:layout_height="48dp"
+        android:layout_gravity="bottom"
+        android:background="#fafafa"
+        android:gravity="center_vertical"
+        android:orientation="horizontal">
+
+        <RadioButton
+            android:id="@+id/main_home"
+            style="@style/RadioButtonBottomTab"
+            android:checked="true"
+            android:drawableTop="@drawable/icon_home_selector"
+            android:text="@string/home"/>
+
+        <RadioButton
+            android:id="@+id/main_message"
+            style="@style/RadioButtonBottomTab"
+            android:drawableTop="@drawable/icon_message_selector"
+            android:text="@string/message"/>
+
+        <ImageView
+            android:id="@+id/main_add"
+            android:layout_width="56dp"
+            android:layout_height="40dp"
+            android:background="@drawable/correct_orange_selector"
+            android:contentDescription="@null"
+            android:padding="8dp"
+            android:src="@drawable/icon_add_selector"/>
+
+        <RadioButton
+            android:id="@+id/main_discover"
+            style="@style/RadioButtonBottomTab"
+            android:drawableTop="@drawable/icon_discover_selector"
+            android:text="@string/discover"/>
+
+        <RadioButton
+            android:id="@+id/main_self"
+            style="@style/RadioButtonBottomTab"
+            android:drawableTop="@drawable/icon_self_selector"
+            android:text="@string/self"/>
+    </RadioGroup>
+
+</LinearLayout>

@@ -1,3 +1,10 @@
 <resources>
     <string name="app_name">WeiBo</string>
+    <string name="home">首页</string>
+    <string name="message">消息</string>
+    <string name="discover">发现</string>
+    <string name="self">我</string>
+
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
 </resources>

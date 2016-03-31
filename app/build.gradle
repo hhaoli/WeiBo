@@ -2,10 +2,21 @@ apply plugin: 'com.android.application'
 apply plugin: 'com.neenbedankt.android-apt'
 apply plugin: 'me.tatarka.retrolambda'
 
+def releaseTime() {
+    return new Date().format("yyyy-MM-dd", TimeZone.getTimeZone("UTC"))
+}
+
 android {
+    signingConfigs {
+        config {
+            keyAlias 'lihonghao'
+            keyPassword 'lihonghao'
+            storeFile file('D:/Develop/StudioProjects/WeiBo/lihonghao.jks')
+            storePassword 'lihonghao'
+        }
+    }
     compileSdkVersion 23
     buildToolsVersion "23.0.3"
-
     defaultConfig {
         applicationId "com.lihonghao.weibo"
         minSdkVersion 16
@@ -15,13 +26,30 @@ android {
     }
     buildTypes {
         debug {
+            signingConfig signingConfigs.config
             buildConfigField "boolean", "LOG_DEBUG", "true"
         }
 
         release {
+            signingConfig signingConfigs.config
             buildConfigField "boolean", "LOG_DEBUG", "false"
             minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+        }
+    }
+    productFlavors {
+        develop {}
+    }
+
+    android.applicationVariants.all { variant ->
+        variant.outputs.each { output ->
+            def outputFile = output.outputFile
+            if (outputFile != null && outputFile.name.endsWith('.apk')) {
+                //这里修改apk文件名
+//                def fileName = "weibo_${variant.productFlavors[0].name}-${defaultConfig.versionCode}-${defaultConfig.versionName}-${releaseTime() }.apk"
+//                output.outputFile = new File(outputFile.parent, fileName)
+                output.outputFile = new File(outputFile.parent, "weibo.apk")
+            }
         }
     }
 
@@ -33,19 +61,34 @@ android {
     retrolambda {
         javaVersion JavaVersion.VERSION_1_6
     }
+
+    sourceSets {
+        main {
+            jniLibs.srcDirs = ['libs']
+        }
+    }
+
 }
 
 dependencies {
     compile fileTree(include: ['*.jar'], dir: 'libs')
     testCompile 'junit:junit:4.12'
+    apt 'com.google.dagger:dagger-compiler:2.1'
+    provided 'org.glassfish:javax.annotation:10.0-b28'
+    retrolambdaConfig 'net.orfjackal.retrolambda:retrolambda:2.1.0'
+    compile('com.github.afollestad.material-dialogs:core:0.8.5.7@aar') {
+        transitive = true
+    }
+    compile('com.github.afollestad.material-dialogs:commons:0.8.5.7@aar') {
+        transitive = true
+    }
+    compile project(':weiboSDK')
     compile 'com.android.support:appcompat-v7:23.2.1'
     compile 'com.android.support:design:23.2.1'
     compile 'com.android.support:recyclerview-v7:23.2.1'
     compile 'com.android.support:cardview-v7:23.2.1'
     compile 'com.jakewharton:butterknife:7.0.1'
     compile 'com.google.dagger:dagger:2.1'
-    apt 'com.google.dagger:dagger-compiler:2.1'
-    provided 'org.glassfish:javax.annotation:10.0-b28'
     compile 'io.reactivex:rxjava:1.1.2'
     compile 'io.reactivex:rxandroid:1.1.0'
     compile 'com.squareup.okhttp3:okhttp:3.2.0'
@@ -56,13 +99,6 @@ dependencies {
     compile 'com.squareup.sqlbrite:sqlbrite:0.6.2'
     compile 'com.squareup:otto:1.3.8'
     compile 'com.github.bumptech.glide:glide:3.7.0'
-    retrolambdaConfig 'net.orfjackal.retrolambda:retrolambda:2.1.0'
-    compile('com.github.afollestad.material-dialogs:core:0.8.5.7@aar') {
-        transitive = true
-    }
-    compile('com.github.afollestad.material-dialogs:commons:0.8.5.7@aar') {
-        transitive = true
-    }
     compile 'com.github.zhaokaiqiang.klog:library:1.4.0'
-
+    compile 'com.android.support:support-v4:23.2.1'
 }

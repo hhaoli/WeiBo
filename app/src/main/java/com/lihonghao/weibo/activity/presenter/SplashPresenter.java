@@ -5,67 +5,60 @@ import android.os.Handler;
 import com.lihonghao.weibo.activity.view.SplashView;
 import com.lihonghao.weibo.core.mvp.BasePresenter;
 import com.lihonghao.weibo.data.DataManager;
-import com.lihonghao.weibo.entity.LoginEntity;
+import com.sina.weibo.sdk.auth.Oauth2AccessToken;
 
 import javax.inject.Inject;
 
-import rx.Observer;
-import rx.android.schedulers.AndroidSchedulers;
-import rx.schedulers.Schedulers;
-import rx.subscriptions.CompositeSubscription;
-
 public class SplashPresenter extends BasePresenter<SplashView> {
-    private final DataManager mDataManager;
-    private CompositeSubscription mSubscription;
+
+    private Oauth2AccessToken accessToken;
+    @Inject
+    DataManager mDataManager;
 
     @Inject
     public SplashPresenter(DataManager dataManager) {
         mDataManager = dataManager;
-
     }
 
-    public void init(int taskId) {
-        mSubscription = mDataManager.getSubscription(taskId);
+    public void init() {
+
 
         if (!getMvpView().checkNet()) {//没有网络
             getMvpView().settingNet();
             return;
         }
-/*****暂时不检查版本更新******/
-//        if (checkVersion()) {//有新版本
-//            getMvpView().updateVersion();
-//            return;
-//        }
 
-        if (!getMvpView().isFirst()) {//第一次使用
-            getMvpView().toGuide();
-            return;
+        accessToken = mDataManager.getPreferencesHelper().readAccessToken();
+        if (accessToken.isSessionValid()) {
+            new Handler().postDelayed(() -> getMvpView().toMain(), 1000L);
+        } else {
+            new Handler().postDelayed(() -> getMvpView().toLogin(), 1000L);
         }
-
-        new Handler().postDelayed(() -> getMvpView().toMain(), 2000L);
     }
 
-    private boolean checkVersion() {
-        mSubscription.add(mDataManager.login("demo", "p@ssw0rd")
-                        .subscribeOn(Schedulers.newThread())
-                        .observeOn(AndroidSchedulers.mainThread())
-                        .subscribe(new Observer<LoginEntity>() {
-                            @Override
-                            public void onCompleted() {
-
-                            }
-
-                            @Override
-                            public void onError(Throwable e) {
-
-                            }
-
-                            @Override
-                            public void onNext(LoginEntity entity) {
-
-                            }
-                        })
-        );
-        return false;
-    }
+//    private boolean checkVersion() {
+//        mSubscription.add(mDataManager.login("demo", "p@ssw0rd")
+//                        .subscribeOn(Schedulers.newThread())
+//                        .subscribeOn(Schedulers.io())
+//                        .unsubscribeOn(Schedulers.io())
+//                        .observeOn(AndroidSchedulers.mainThread())
+//                        .subscribe(new Observer<LoginEntity>() {
+//                            @Override
+//                            public void onCompleted() {
+//
+//                            }
+//
+//                            @Override
+//                            public void onError(Throwable e) {
+//
+//                            }
+//
+//                            @Override
+//                            public void onNext(LoginEntity entity) {
+//                                KLog.e(entity.toString());
+//                            }
+//                        })
+//        );
+//        return false;
+//    }
 }

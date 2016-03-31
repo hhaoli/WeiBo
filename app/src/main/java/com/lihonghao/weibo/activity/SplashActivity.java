@@ -3,21 +3,16 @@ package com.lihonghao.weibo.activity;
 import android.os.Bundle;
 
 import com.afollestad.materialdialogs.AlertDialogWrapper;
-import com.lihonghao.weibo.Config;
 import com.lihonghao.weibo.R;
 import com.lihonghao.weibo.activity.presenter.SplashPresenter;
 import com.lihonghao.weibo.activity.view.SplashView;
 import com.lihonghao.weibo.core.BaseActivity;
-import com.lihonghao.weibo.data.DataManager;
 import com.lihonghao.weibo.util.NetUtils;
-import com.socks.library.KLog;
 
 import javax.inject.Inject;
 
 public class SplashActivity extends BaseActivity implements SplashView {
 
-    @Inject
-    DataManager mDataManager;
     @Inject
     SplashPresenter mPresenter;
 
@@ -30,7 +25,7 @@ public class SplashActivity extends BaseActivity implements SplashView {
     protected void init(Bundle savedInstanceState) {
         activityComponent().inject(this);
         mPresenter.attachView(this);
-        mPresenter.init(getTaskId());
+        mPresenter.init();
     }
 
     @Override
@@ -54,13 +49,9 @@ public class SplashActivity extends BaseActivity implements SplashView {
     }
 
     @Override
-    public boolean isFirst() {
-        return mDataManager.getPreferencesHelper().getBoolean(Config.PREF_KEY_FIRST);
-    }
-
-    @Override
-    public void updateVersion() {
-
+    public void toLogin() {
+        LoginActivity.launch(this);
+        finish();
     }
 
     @Override
@@ -70,18 +61,8 @@ public class SplashActivity extends BaseActivity implements SplashView {
     }
 
     @Override
-    public void toGuide() {
-        mDataManager.getPreferencesHelper().putBoolean(Config.PREF_KEY_FIRST, true);
-    }
-
-    @Override
     public void onFailure(Throwable e) {
 
-    }
-
-    @Override
-    public void onBackPressed() {
-        finish();
     }
 
     @Override
